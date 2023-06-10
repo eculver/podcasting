@@ -1,0 +1,138 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+{# Consider adding a manifest.appcache: h5bp.com/d/Offline #}
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+    <head>
+        <title>{% block title %}The Drunken Taoist{% endblock %}</title>
+        <meta name="description" content="{% block meta-description %}{% endblock %}">
+        <meta name="keywords" content="{% block meta-keywords %}{% endblock %}">
+        <meta charset="utf-8">
+
+        {# Mobile viewport optimized: h5bp.com/viewport #}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+        <link rel="stylesheet" href="{{STATIC_URL}}tdt/css/style.css">
+
+        {# only script in head is Modernizr #}
+        <script src="{{STATIC_URL}}common/js/modernizr-2.5.3.min.js"></script>
+
+        {% block extrahead %}{% endblock %}
+    </head>
+    <body id="{% block bodyid %}default{% endblock %}" class="{% block bodyclass %}default{% endblock %}">
+        <!--[if lt IE 7]>
+        <p class=chromeframe>
+            Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.
+        </p>
+        <![endif]-->
+
+        <div id="wrap" class="container">
+            <div id="main" role="main">
+                <header class="row-fluid">
+                    <div class="span12">
+                        {% block header %}
+                            <div id="logo">
+                                <!--<a href="{% url "home" %}" title="Home"><img src="http://placehold.it/270x200"></a>-->
+                                <a href="{% url "home" %}" title="Home"><img src="{{ STATIC_URL }}tdt/img/logo_hd.png"></a>
+                            </div>
+                        {% endblock %}
+                        <nav class="content-well">
+                            <ul>
+                                <li><a href="{% latest_episode_url %}" title="Latest">Latest</a></li>
+                                <li{% if selected_nav == "episodes_list" %} class="active"{% endif %}>
+                                    <a href="{% url "episodes_list" %}" title="Archive">Archive</a>
+                                </li>
+                                <li{% if selected_nav == "contact_form" %} class="active"{% endif %}>
+                                    <a href="{% url "contact_form" %}" title="Contact">Contact</a>
+                                </li>
+                                <li{% if selected_nav == "flatpages_donate" %} class="active"{% endif %}>
+                                    <a href="{% url "flatpages_donate" %}" title="Donate">Donate</a>
+                                </li>
+                                <li{% if selected_nav == "flatpages_subscribe" %} class="active"{% endif %}>
+                                    <a href="{% url "flatpages_subscribe" %}" title="Subscribe">Subscribe</a>
+                                </li>
+                                <li><a href="http://bit.ly/XjYqF1" title="Shop">Shop</a></li>
+                                <li{% if selected_nav == "forum_home" %} class="active"{% endif %}>
+                                    <a href="{% url "pybb:index" %}" title="Forum">Forum</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </header>
+
+                <div id="body" class="row-fluid">
+                    <div class="span12">
+                        {% block body_content %}
+                            {% block content %}<h2>Content</h2>{% endblock %}
+                        {% endblock %}
+                    </div>
+
+                    <!--<div id="affiliate" class="span2">-->
+                    <!--    <a href='http://wig.bz/1bm'><img alt="Ds_webad_3" src="http://c656126.r26.cf2.rackcdn.com/ad_images/1384/original/DS_WebAd_3.jpg?1331253857" /></a>-->
+                    <!--</div>-->
+                </div>
+
+                <footer class="row-fluid">
+                    <div class="span12">
+                        <div class="content-well">
+                            {% block footer %}
+                                <ul>
+                                    <li><a href="{% latest_episode_url %}" title="Latest">Latest</a></li>
+                                    <li><a href="{% url "episodes_list" %}" title="Archive">Archive</a></li>
+                                    <li><a href="{% url "contact_form" %}" title="Contact">Contact</a></li>
+                                    <li><a href="{% url "flatpages_donate" %}" title="Donate">Donate</a></li>
+                                    <li><a href="{% url "flatpages_subscribe" %}" title="Subscribe">Subscribe</a></li>
+                                    <li><a href="http://bit.ly/XjYqF1" title="Shop">Shop</a></li>
+                                    <li><a href="{% url "pybb:index" %}" title="Forum">Forum</a></li>
+                                    <li><a href="/survey" title="Listener Survey" target="_blank">Survey</a></li>
+                                </ul>
+
+                                <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                                    <input type="hidden" name="cmd" value="_s-xclick">
+                                    <input type="hidden" name="hosted_button_id" value="J95QBRA5QYMQQ">
+                                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                                </form>
+
+                                <ul class="credits">
+                                    <li>Logo by <a href="http://www.jamieludovise.com/" target="_BLANK" title="Jaime Ludovise">Jaime Ludovise</a> and <a href="http://www.savannahem.com/" target="_BLANK" title="Savannah Em">Savannah Em</a></li>
+                                    <li>Site by <a href="http://eculver.io" target="_BLANK" title="Evan Culver">Evan Culver</a> and Ben Crogan</li>
+                                    <li>Hosted by <a href="http://distributed.io" target="_BLANK" title="Hosted by distributed.io">distributed.io</a></li>
+                                </ul>
+                                <div class="med-banner">
+                                    <iframe src="http://files.bannersnack.com/iframe/embed.html?hash=buka63im&bgcolor=%233D3D3D&wmode=opaque&t=1359606086" width="428" height="60" seamless="seamless" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+                                </div>
+                                <!--
+                                <div class="affiliate">
+                                    <a href='http://www.netxtrack.com/click.track?CID=102175&AFID=230775&ADID=532853&SID='>
+                                        <img src='http://www.netxtrack.com/impression.track?CID=102175&AFID=230775&ADID=532853&SID=' border='0' />
+                                    </a>
+                                </div>
+                                -->
+                            {% endblock %}
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+        <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="{{STATIC_URL}}common/js/jquery-1.7.2.min.js"><\/script>')</script>
+
+        <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!--[if lt IE 7 ]>
+        <script src="{{ STATIC_URL }}common/js/dd_belatedpng.js"></script>
+        <script>DD_belatedPNG.fix('img, .png_bg'); // fix any <img> or .png_bg background-images</script>
+        <![endif]-->
+
+        {% block extrabody %}{% endblock %}
+
+        {% ganalytics %}
+    </body>
+</html>
