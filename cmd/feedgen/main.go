@@ -90,7 +90,7 @@ func main() {
 			}
 
 			if err := episode.Hydrate(); err != nil {
-				fmt.Printf("WARNING: could not hydrate episode: %s\n", err)
+				fmt.Printf("WARN: could not hydrate episode: %s\n", err)
 				return nil
 			}
 			// TODO: discover audio, thumb
@@ -123,10 +123,10 @@ func main() {
 
 	channelRaw, err := ioutil.ReadFile(channelPath)
 	if err != nil {
-		log.Fatalf("could not read channel file %s: %s", channelPath, err)
+		log.Fatalf("could not read channel file at %s: %s", channelPath, err)
 	}
 	if err := yaml.Unmarshal(channelRaw, &channel); err != nil {
-		// can't unmarshal file as yaml, so skip
+		log.Fatalf("could unmarshal channel yaml at %s: %s", channelPath, err)
 	}
 
 	publishedTime := channel.Created
@@ -150,7 +150,6 @@ func main() {
 	p.IExplicit = "yes"
 
 	for _, e := range episodes {
-		// create an Item
 		item := podcast.Item{
 			Title:       fmt.Sprintf("Episode %d - %s", e.Meta.Index, e.Meta.Title),
 			Link:        e.WebURL,
@@ -161,7 +160,9 @@ func main() {
 		item.AddSummary(e.TeaserHTML())
 		item.AddEnclosure(e.AudioURL, podcast.MP3, 55*(e.Meta.Index+1))
 
-		// add the Item and check for validation errors
+		// add the Item and check for validation errors, if we can't add
+		// an item, the whole thing fails because it probably means something
+		// isn't formatted/encoded correctly
 		if _, err := p.AddItem(item); err != nil {
 			log.Fatalf("error adding episode %s: %s", item.Title, err)
 		}
