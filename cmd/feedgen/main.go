@@ -31,7 +31,7 @@ type Config struct {
 
 func main() {
 	// TODO: make this configurable via CLI options or static file config
-	staticDir := "/Users/evan.culver/dev/src/github.com/eculver/tdtv2/static"
+	staticDir := "/Users/evan.culver/dev/src/github.com/eculver/tdtv2/content"
 	conf := &Config{
 		IndexDir:    staticDir + "/index",
 		TemplateDir: staticDir + "/tmpl",
